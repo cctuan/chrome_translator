@@ -1,11 +1,14 @@
 
-console.log("content Script");
-
-document.addEventListener('mouseup', function() {
-    var selection = window.getSelection().toString().trim();
+(function(scope){
+	function init(){
+		document.addEventListener('mouseup', function() {
+    	var selection = scope.getSelection().toString().trim();
     
-    chrome.extension.sendMessage({
+   		chrome.extension.sendMessage({
         request: 'updateContextMenu',
         selection: selection
-    });
-});
+    	});
+		});
+	};
+	scope.onload = init;
+}(window));

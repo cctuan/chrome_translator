@@ -1,30 +1,29 @@
 
 var contexts = ["selection"];
-var cmid;
 for (var i = 0; i < contexts.length; i++) {
 
   var context = contexts[i];
   var title = "Translating %s"  ;
   var id = chrome.contextMenus.create({
   	"title": title, 
-  	"contexts":[context],
-		"onclick": genericOnClick
+  	"contexts":[context]
+		//"onclick": genericOnClick
 	});
 
   console.log("'" + context + "' item:" + id);
 
-}
+}/*
 function genericOnClick(e){
 	translator(e.selectionText);
 
-}
+}*/
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.request === 'updateContextMenu') {
         var type = msg.selection;
         if (type == '') {
             // Remove the context menu entry
             
-        } else { 
+        }else { 
         	translator(type,function(data){
         		chrome.contextMenus.update(id,{
         			title : data,
@@ -33,18 +32,7 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
         		});
 
         	});
-      /*      var options = {
-                title: type,
-                contexts: ['selection'],
-                onclick: cm_clickHandler
-            };
-            if (cmid != null) {
-                chrome.contextMenus.update(cmid, options);
-            } else {
-                // Create new menu, and remember the ID
-                cmid = chrome.contextMenus.create(options);
-            }
-        */}
+    		}
     }
 });
 
