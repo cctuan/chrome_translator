@@ -10,7 +10,6 @@ for (var i = 0; i < contexts.length; i++) {
 		//"onclick": genericOnClick
 	});
 
-  console.log("'" + context + "' item:" + id);
 
 }/*
 function genericOnClick(e){
@@ -21,15 +20,27 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
     if (msg.request === 'updateContextMenu') {
         var type = msg.selection;
         if (type == '') {
-            // Remove the context menu entry
+          
+        	chrome.contextMenus.remove(id);
+
+        	id = null;
             
         }else { 
         	translator(type,function(data){
-        		chrome.contextMenus.update(id,{
-        			title : data,
-        			contexts : ['selection']
+        		if(id){
+        			chrome.contextMenus.update(id,{
+        				title : data,
+        				contexts : ['selection']
 
-        		});
+        			});
+        		}else{
+        			id = chrome.contextMenus.create({
+        				title : data,
+        				contexts : ['selection']
+
+        			});
+
+        		}
 
         	});
     		}
