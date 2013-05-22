@@ -1,0 +1,14 @@
+{
+  "name": "Translator",
+  "description": "fast translate to chinese in contextMenu",
+  "version": "0.1",
+  "permissions": ["contextMenus","http://*/*","https://*/*"],
+  "background": {
+    "scripts": ["translate.js"]
+  },
+  "content_scripts":[{
+  	"matches": ["http://*/*", "https://*/*"],
+    "js": ["content_script.js"]
+  }],
+  "manifest_version": 2
+}
